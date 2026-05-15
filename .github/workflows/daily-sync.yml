@@ -40,7 +40,7 @@ jobs:
 
           # ── Always write stats.json so there is always a daily commit ─────────
           d = (stats_json or {}).get('data', {})
-          total     = d.get('total_characters', 0) or 0
+          total     = d.get('total', 0) or 0
           by_rarity = d.get('by_rarity',  {})
           by_class  = d.get('by_class',   {})
           by_elem   = d.get('by_element', {})
