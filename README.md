@@ -144,6 +144,23 @@ Each operator is locked to one weapon type. The type determines animation style 
 
 ---
 
+## Database Stats
+
+<!-- SYNC:START -->
+*Last synced: 2026-05-15 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+
+| Metric | Value |
+|--------|-------|
+| **Total Operators** | **—** |
+| 6★ Operators | — |
+| 5★ Operators | — |
+| 4★ Operators | — |
+| Most common class | — |
+| Most common element | — |
+<!-- SYNC:END -->
+
+---
+
 ## Contributing
 
 Found outdated info or want to add a guide? Open an issue or submit a pull request. All contributions welcome — especially:

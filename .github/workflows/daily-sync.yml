@@ -1,0 +1,118 @@
+name: Daily Data Sync
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 3 AM UTC every day
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch API data and update files
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request, json, re, textwrap, os, sys
+          from datetime import datetime, timezone
+
+          API   = 'https://api.vallov.com'
+          TODAY = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
+          def fetch(path):
+              try:
+                  req = urllib.request.Request(
+                      f'{API}{path}',
+                      headers={'User-Agent': 'reend-community-sync/1.0'},
+                  )
+                  with urllib.request.urlopen(req, timeout=15) as r:
+                      return json.loads(r.read())
+              except Exception as e:
+                  print(f'[sync] WARN: {path} — {e}')
+                  return None
+
+          stats_json = fetch('/api/stats')
+          meta_json  = fetch('/api/meta')
+
+          # ── Always write stats.json so there is always a daily commit ─────────
+          d = (stats_json or {}).get('data', {})
+          total     = d.get('total_characters', 0) or 0
+          by_rarity = d.get('by_rarity',  {})
+          by_class  = d.get('by_class',   {})
+          by_elem   = d.get('by_element', {})
+          api_ok    = stats_json is not None
+
+          payload = {
+              'synced_at':       TODAY,
+              'api_available':   api_ok,
+              'total_operators': total,
+              'by_rarity':       by_rarity,
+              'by_class':        by_class,
+              'by_element':      by_elem,
+              'source':          'api.vallov.com',
+          }
+          with open('data/stats.json', 'w') as f:
+              json.dump(payload, f, indent=2, ensure_ascii=False)
+              f.write('\n')
+          print(f'[sync] data/stats.json → {total} operators ({TODAY})')
+
+          if not api_ok:
+              print('[sync] API unavailable — README.md unchanged')
+              sys.exit(0)
+
+          # ── Update README.md between SYNC markers ────────────────────────────
+          r6 = by_rarity.get('6', '—')
+          r5 = by_rarity.get('5', '—')
+          r4 = by_rarity.get('4', '—')
+
+          top_class = max(by_class, key=lambda k: by_class[k], default='—') if by_class else '—'
+          top_elem  = max(by_elem,  key=lambda k: by_elem[k],  default='—') if by_elem  else '—'
+
+          block = textwrap.dedent(f"""\
+          <!-- SYNC:START -->
+          *Last synced: {TODAY} — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+
+          | Metric | Value |
+          |--------|-------|
+          | **Total Operators** | **{total}** |
+          | 6★ Operators | {r6} |
+          | 5★ Operators | {r5} |
+          | 4★ Operators | {r4} |
+          | Most common class | {top_class.capitalize()} |
+          | Most common element | {top_elem.capitalize()} |
+          <!-- SYNC:END -->""")
+
+          with open('README.md', 'r') as f:
+              content = f.read()
+
+          updated = re.sub(
+              r'<!-- SYNC:START -->.*?<!-- SYNC:END -->',
+              block,
+              content,
+              flags=re.DOTALL,
+          )
+
+          if updated != content:
+              with open('README.md', 'w') as f:
+                  f.write(updated)
+              print('[sync] README.md updated')
+          else:
+              print('[sync] README.md unchanged (data identical)')
+          PYEOF
+
+      - name: Commit and push
+        run: |
+          git config user.name  "reend-sync[bot]"
+          git config user.email "reend-sync[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "[sync] Nothing to commit"
+          else
+            TOTAL=$(python3 -c "import json; d=json.load(open('data/stats.json')); print(d.get('total_operators',0))" 2>/dev/null || echo "?")
+            git commit -m "data: sync operator stats ${TOTAL} ops — $(date -u '+%Y-%m-%d')"
+            git push
+          fi
