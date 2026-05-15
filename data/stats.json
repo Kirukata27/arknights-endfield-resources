@@ -1,9 +1,26 @@
 {
   "synced_at": "2026-05-15",
-  "api_available": false,
+  "api_available": true,
   "total_operators": 0,
-  "by_rarity": {},
-  "by_class": {},
-  "by_element": {},
+  "by_rarity": {
+    "6": 12,
+    "5": 9,
+    "4": 5
+  },
+  "by_class": {
+    "Striker": 6,
+    "Guard": 5,
+    "Caster": 4,
+    "Vanguard": 4,
+    "Supporter": 4,
+    "Defender": 3
+  },
+  "by_element": {
+    "Physical": 7,
+    "Cryo": 7,
+    "Electric": 5,
+    "Heat": 4,
+    "Nature": 3
+  },
   "source": "api.vallov.com"
 }

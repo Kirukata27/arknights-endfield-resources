@@ -151,12 +151,12 @@ Each operator is locked to one weapon type. The type determines animation style 
 
 | Metric | Value |
 |--------|-------|
-| **Total Operators** | **—** |
-| 6★ Operators | — |
-| 5★ Operators | — |
-| 4★ Operators | — |
-| Most common class | — |
-| Most common element | — |
+| **Total Operators** | **0** |
+| 6★ Operators | 12 |
+| 5★ Operators | 9 |
+| 4★ Operators | 5 |
+| Most common class | Striker |
+| Most common element | Physical |
 <!-- SYNC:END -->
 
 ---
