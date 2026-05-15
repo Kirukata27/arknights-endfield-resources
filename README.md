@@ -1,5 +1,7 @@
 # Arknights: Endfield — Community Resource Hub
 
+<a href="https://reend.vallov.com/" title="ReEnd — Arknights: Endfield Database"><img src="assets/favicon.svg" alt="ReEnd" width="40" align="right"></a>
+
 A curated collection of guides, tier lists, and tools for **Arknights: Endfield** players. This repository is community-maintained and updated regularly as the game evolves.
 
 > **Full database, build guides, and pity tracker → [ReEnd](https://reend.vallov.com/)**

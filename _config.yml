@@ -1,0 +1,17 @@
+title: "Arknights: Endfield — Community Resource Hub"
+description: "Community guides, tier list, pity mechanics, and operator reference for Arknights: Endfield players."
+url: "https://kirukata27.github.io"
+baseurl: "/arknights-endfield-resources"
+
+theme: jekyll-theme-minimal
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+author:
+  name: "Kirukata27"
+
+links:
+  - title: "ReEnd Database"
+    url: "https://reend.vallov.com/"
