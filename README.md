@@ -149,11 +149,11 @@ Each operator is locked to one weapon type. The type determines animation style 
 ## Database Stats
 
 <!-- SYNC:START -->
-*Last synced: 2026-05-15 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+*Last synced: 2026-05-16 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
 
 | Metric | Value |
 |--------|-------|
-| **Total Operators** | **0** |
+| **Total Operators** | **26** |
 | 6★ Operators | 12 |
 | 5★ Operators | 9 |
 | 4★ Operators | 5 |
