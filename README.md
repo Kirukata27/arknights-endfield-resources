@@ -149,7 +149,7 @@ Each operator is locked to one weapon type. The type determines animation style 
 ## Database Stats
 
 <!-- SYNC:START -->
-*Last synced: 2026-06-05 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+*Last synced: 2026-06-06 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
 
 | Metric | Value |
 |--------|-------|
