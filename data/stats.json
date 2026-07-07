@@ -1,26 +1,9 @@
 {
-  "synced_at": "2026-07-06",
-  "api_available": true,
-  "total_operators": 28,
-  "by_rarity": {
-    "6": 14,
-    "5": 9,
-    "4": 5
-  },
-  "by_class": {
-    "Striker": 6,
-    "Guard": 6,
-    "Vanguard": 5,
-    "Caster": 4,
-    "Supporter": 4,
-    "Defender": 3
-  },
-  "by_element": {
-    "Physical": 8,
-    "Cryo": 7,
-    "Heat": 5,
-    "Electric": 5,
-    "Nature": 3
-  },
+  "synced_at": "2026-07-07",
+  "api_available": false,
+  "total_operators": 0,
+  "by_rarity": {},
+  "by_class": {},
+  "by_element": {},
   "source": "api.vallov.com"
 }
