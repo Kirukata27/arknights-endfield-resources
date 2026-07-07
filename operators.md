@@ -1,83 +1,85 @@
 # Arknights: Endfield — Operator Reference
 
-Complete operator list with class, element, weapon, and rarity. For full build guides, skill breakdowns, and tier ratings visit **[reend.vallov.com/characters](https://reend.vallov.com/characters/)**.
+Complete operator roster with class, element, weapon, rarity, and current community tier. Data mirrors the live [ReEnd Database](https://reend.vallov.com/characters/), synced from `api.vallov.com`.
+
+> **28 operators** — 14 × 6★ · 9 × 5★ · 5 × 4★ · _last verified 2026-07-07_
+
+For full build guides, skill breakdowns, gear sets, and rotations, open any operator on **[reend.vallov.com/characters](https://reend.vallov.com/characters/)**.
 
 ---
 
 ## 6★ Operators
 
-| Operator | Class | Element | Weapon | Tier |
-|----------|-------|---------|--------|------|
-| Laevatain | Guard | Heat | Greatsword | T0 |
-| Chen Qianyu | Striker | Electric | Sword | T0 |
-| Endministrator | Supporter | — | Arts Unit | T0 |
-| Lifeng | Supporter | Nature | Polearm | T0.5 |
-| Pogranichnik | Striker | Physical | Handcannon | T0.5 |
-| Zhuang Fangyi | Caster | Electric | Arts Unit | T0.5 |
-| Tangtang | Supporter | Nature | Arts Unit | T0.5 |
-| Ember | Defender | Heat | Greatsword | T1 |
-| Rossi | Caster | — | Arts Unit | T1 |
-| Xaihi | Striker | Cryo | Handcannon | T1 |
-| Yvonne | Defender | — | Polearm | T1 |
-| Estella | Guard | Physical | Sword | T1.5 |
-| Last Rite | Defender | Physical | Sword | T1.5 |
-| Perlica | Supporter | Cryo | Arts Unit | T1.5 |
-| Wulfgard | Guard | Physical | Greatsword | T1.5 |
-| Snowshine | Defender | Cryo | Greatsword | T1.5 |
-| Gilberta | Striker | — | Handcannon | T1.5 |
-| Arclight | Guard | Electric | Sword | T2 |
-| Avywenna | Vanguard | — | Polearm | T2 |
+| Operator | Class | Element | Weapon | Tier | Archetype |
+|----------|-------|---------|--------|------|-----------|
+| Ardelia | Supporter | Nature | Arts Unit | T0.5 | Buffer |
+| Camille | Vanguard | Heat | Polearm | T0 | Enabler |
+| Ember | Defender | Heat | Greatsword | T1 | Enabler |
+| Endministrator | Guard | Physical | Sword | T1 | Damage |
+| Gilberta | Supporter | Nature | Arts Unit | T0 | Buffer |
+| Laevatain | Striker | Heat | Sword | T0.5 | Damage |
+| Last Rite | Striker | Cryo | Greatsword | T0.5 | Damage |
+| Lifeng | Guard | Physical | Polearm | T0.5 | Enabler |
+| Mi Fu | Guard | Physical | Greatsword | T0 | Damage |
+| Pogranichnik | Vanguard | Physical | Sword | T0 | Buffer |
+| Rossi | Guard | Physical | Sword | T0 | Damage |
+| Tangtang | Caster | Cryo | Handcannon | T0 | Enabler |
+| Yvonne | Striker | Cryo | Handcannon | T0.5 | Damage |
+| Zhuang Fangyi | Striker | Electric | Arts Unit | T0 | Damage |
 
 ## 5★ Operators
 
-| Operator | Class | Element | Weapon |
-|----------|-------|---------|--------|
-| Da Pan | Striker | Electric | Handcannon |
-| Ardelia | Guard | Physical | Polearm |
-| Fluorite | Caster | — | Arts Unit |
-| Alesh | Caster | Cryo | Arts Unit |
-| Antal | Vanguard | — | Greatsword |
-| Catcher | Striker | — | Sword |
+| Operator | Class | Element | Weapon | Tier | Archetype |
+|----------|-------|---------|--------|------|-----------|
+| Alesh | Vanguard | Cryo | Sword | T1 | Enabler |
+| Arclight | Vanguard | Electric | Sword | T1 | Enabler |
+| Avywenna | Striker | Electric | Polearm | T0.5 | Damage |
+| Chen Qianyu | Guard | Physical | Sword | T0.5 | Enabler |
+| Da Pan | Striker | Physical | Greatsword | T1 | Damage |
+| Perlica | Caster | Electric | Arts Unit | T0 | Buffer |
+| Snowshine | Defender | Cryo | Greatsword | T1 | Enabler |
+| Wulfgard | Caster | Heat | Handcannon | T0.5 | Enabler |
+| Xaihi | Supporter | Cryo | Arts Unit | T0.5 | Buffer |
 
 ## 4★ Operators
 
-| Operator | Class | Element | Weapon |
-|----------|-------|---------|--------|
-| Akekuri | Supporter | — | Polearm |
+| Operator | Class | Element | Weapon | Tier | Archetype |
+|----------|-------|---------|--------|------|-----------|
+| Akekuri | Vanguard | Heat | Sword | T0.5 | Buffer |
+| Antal | Supporter | Electric | Arts Unit | T1 | Buffer |
+| Catcher | Defender | Physical | Greatsword | T2 | Enabler |
+| Estella | Guard | Cryo | Polearm | T1.5 | Enabler |
+| Fluorite | Caster | Nature | Handcannon | T1.5 | Enabler |
 
 ---
 
-## Skill Priority Guide (Summary)
+## Roster at a Glance
 
-Quick reference for which skills to level first. Full explanations at [reend.vallov.com](https://reend.vallov.com/).
+| Breakdown | Distribution |
+|-----------|--------------|
+| **By class** | Striker ×6 · Guard ×6 · Vanguard ×5 · Caster ×4 · Supporter ×4 · Defender ×3 |
+| **By element** | Physical ×8 · Cryo ×7 · Heat ×5 · Electric ×5 · Nature ×3 |
+| **By weapon** | Sword ×8 · Greatsword ×6 · Arts Unit ×6 · Handcannon ×4 · Polearm ×4 |
 
-**General rule:** Combo Skill > Ultimate ≥ Basic Attack > Battle Skill (varies by operator)
-
-| Operator | Priority Order |
-|----------|---------------|
-| Laevatain | Combo Skill > Ultimate > Basic Attack > Battle Skill |
-| Chen Qianyu | Ultimate > Combo Skill > Basic Attack > Battle Skill |
-| Ember | Combo Skill > Ultimate = Basic Attack > Battle Skill |
-| Lifeng | Combo Skill > Ultimate > Battle Skill > Basic Attack |
-| Pogranichnik | Combo Skill > Basic Attack > Ultimate > Battle Skill |
+**Archetypes:** _Damage_ — primary damage dealers · _Enabler_ — set up Vulnerable, debuffs, or reactions · _Buffer_ — amplify team output.
 
 ---
 
 ## Potential System
 
-Duplicate operators grant **Potential Tokens** to increase an operator's potential level (P1–P6).
+Duplicate operators grant **Potential Tokens**, which raise an operator's potential level (P1–P6). Each rank unlocks stat gains or kit upgrades.
 
-| Potential | Unlock |
-|-----------|--------|
-| P1 | Base stats +, minor buff |
+| Potential | Typical Unlock |
+|-----------|----------------|
+| P1 | Base stat bump, minor passive |
 | P2 | Skill effect enhancement |
-| P3 | Stats improvement |
-| P4 | Skill enhancement |
+| P3 | Stat improvement |
+| P4 | Skill enhancement (often a breakpoint) |
 | P5 | Major buff or new mechanic |
 | P6 | Maximum — significant power spike |
 
-6★ operators from limited banners can also receive Potential Tokens from the **Rate-Up Guarantee** at 240 pulls on the same banner.
+6★ operators from limited banners can also earn Potential Tokens from the **Rate-Up Guarantee** milestones on the same banner.
 
 ---
 
-*For detailed builds, gear sets, and team comps: [reend.vallov.com/characters](https://reend.vallov.com/characters/)*
+*Tiers reflect the current community consensus and are updated after each patch. For detailed builds, gear sets, and team comps: [reend.vallov.com/characters](https://reend.vallov.com/characters/).*
