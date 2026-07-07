@@ -5,6 +5,11 @@ on:
     - cron: '0 3 * * *'   # 3 AM UTC every day
   workflow_dispatch:
 
+# Prevent overlapping runs from racing on the same push.
+concurrency:
+  group: daily-sync
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -17,60 +22,86 @@ jobs:
       - name: Fetch API data and update files
         run: |
           python3 - <<'PYEOF'
-          import urllib.request, json, re, textwrap, os, sys
+          import urllib.request, json, re, textwrap, os, sys, time
           from datetime import datetime, timezone
 
           API   = 'https://api.vallov.com'
           TODAY = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 
-          def fetch(path):
-              try:
-                  req = urllib.request.Request(
-                      f'{API}{path}',
-                      headers={'User-Agent': 'reend-community-sync/1.0'},
-                  )
-                  with urllib.request.urlopen(req, timeout=15) as r:
-                      return json.loads(r.read())
-              except Exception as e:
-                  print(f'[sync] WARN: {path} — {e}')
-                  return None
+          def fetch(path, retries=3):
+              """GET JSON with a few retries — guards against transient runner
+              network hiccups that would otherwise look like an API outage."""
+              last = None
+              for attempt in range(1, retries + 1):
+                  try:
+                      req = urllib.request.Request(
+                          f'{API}{path}',
+                          headers={'User-Agent': 'reend-community-sync/1.0'},
+                      )
+                      with urllib.request.urlopen(req, timeout=20) as r:
+                          return json.loads(r.read())
+                  except Exception as e:
+                      last = e
+                      print(f'[sync] attempt {attempt}/{retries} failed for {path} — {e}')
+                      if attempt < retries:
+                          time.sleep(attempt * 3)
+              print(f'[sync] WARN: {path} unavailable after {retries} tries — {last}')
+              return None
+
+          # ── Load last-known-good so a failed fetch NEVER destroys data ────────
+          try:
+              with open('data/stats.json') as f:
+                  prev = json.load(f)
+          except (FileNotFoundError, json.JSONDecodeError):
+              prev = {}
 
           stats_json = fetch('/api/stats')
-          meta_json  = fetch('/api/meta')
-
-          # ── Always write stats.json so there is always a daily commit ─────────
           d = (stats_json or {}).get('data', {})
-          total     = d.get('total', 0) or 0
-          by_rarity = d.get('by_rarity',  {})
-          by_class  = d.get('by_class',   {})
-          by_elem   = d.get('by_element', {})
-          api_ok    = stats_json is not None
+          total = int(d.get('total') or 0)
 
-          payload = {
-              'synced_at':       TODAY,
-              'api_available':   api_ok,
-              'total_operators': total,
-              'by_rarity':       by_rarity,
-              'by_class':        by_class,
-              'by_element':      by_elem,
-              'source':          'api.vallov.com',
-          }
+          # A response with zero operators is treated as a bad read, not truth —
+          # the roster never legitimately drops to 0.
+          api_ok = stats_json is not None and total > 0
+
+          if api_ok:
+              payload = {
+                  'synced_at':       TODAY,
+                  'last_checked':    TODAY,
+                  'api_available':   True,
+                  'total_operators': total,
+                  'by_rarity':       d.get('by_rarity',  {}),
+                  'by_class':        d.get('by_class',   {}),
+                  'by_element':      d.get('by_element', {}),
+                  'by_weapon':       d.get('by_weapon',  {}),
+                  'source':          'api.vallov.com',
+              }
+              print(f'[sync] fresh data → {total} operators ({TODAY})')
+          else:
+              # Keep every previous value; only record that we checked today.
+              payload = dict(prev)
+              payload['last_checked']  = TODAY
+              payload['api_available'] = False
+              payload.setdefault('total_operators', 0)
+              payload.setdefault('source', 'api.vallov.com')
+              print('[sync] API unavailable — preserving last-known-good stats')
+
           with open('data/stats.json', 'w') as f:
               json.dump(payload, f, indent=2, ensure_ascii=False)
               f.write('\n')
-          print(f'[sync] data/stats.json → {total} operators ({TODAY})')
 
+          # ── Update README only when we have trustworthy fresh data ────────────
           if not api_ok:
-              print('[sync] API unavailable — README.md unchanged')
+              print('[sync] README.md left untouched (no fresh data)')
               sys.exit(0)
 
-          # ── Update README.md between SYNC markers ────────────────────────────
+          by_rarity = payload['by_rarity']
+          by_class  = payload['by_class']
+          by_elem   = payload['by_element']
           r6 = by_rarity.get('6', '—')
           r5 = by_rarity.get('5', '—')
           r4 = by_rarity.get('4', '—')
-
-          top_class = max(by_class, key=lambda k: by_class[k], default='—') if by_class else '—'
-          top_elem  = max(by_elem,  key=lambda k: by_elem[k],  default='—') if by_elem  else '—'
+          top_class = max(by_class, key=by_class.get) if by_class else '—'
+          top_elem  = max(by_elem,  key=by_elem.get)  if by_elem  else '—'
 
           block = textwrap.dedent(f"""\
           <!-- SYNC:START -->
@@ -86,16 +117,10 @@ jobs:
           | Most common element | {top_elem.capitalize()} |
           <!-- SYNC:END -->""")
 
-          with open('README.md', 'r') as f:
+          with open('README.md') as f:
               content = f.read()
-
-          updated = re.sub(
-              r'<!-- SYNC:START -->.*?<!-- SYNC:END -->',
-              block,
-              content,
-              flags=re.DOTALL,
-          )
-
+          updated = re.sub(r'<!-- SYNC:START -->.*?<!-- SYNC:END -->', block,
+                            content, flags=re.DOTALL)
           if updated != content:
               with open('README.md', 'w') as f:
                   f.write(updated)
@@ -112,7 +137,12 @@ jobs:
           if git diff --staged --quiet; then
             echo "[sync] Nothing to commit"
           else
-            TOTAL=$(python3 -c "import json; d=json.load(open('data/stats.json')); print(d.get('total_operators',0))" 2>/dev/null || echo "?")
-            git commit -m "data: sync operator stats ${TOTAL} ops — $(date -u '+%Y-%m-%d')"
+            TOTAL=$(python3 -c "import json; print(json.load(open('data/stats.json')).get('total_operators',0))" 2>/dev/null || echo "?")
+            OK=$(python3 -c "import json; print(json.load(open('data/stats.json')).get('api_available'))" 2>/dev/null || echo "?")
+            if [ "$OK" = "True" ]; then
+              git commit -m "data: sync operator stats ${TOTAL} ops — $(date -u '+%Y-%m-%d')"
+            else
+              git commit -m "chore: heartbeat check — api unreachable, data preserved — $(date -u '+%Y-%m-%d')"
+            fi
             git push
           fi
