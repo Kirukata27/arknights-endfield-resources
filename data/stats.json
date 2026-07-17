@@ -1,34 +1,34 @@
 {
-  "synced_at": "2026-07-16",
-  "last_checked": "2026-07-16",
+  "synced_at": "2026-07-17",
+  "last_checked": "2026-07-17",
   "api_available": true,
   "total_operators": 30,
   "by_rarity": {
-    "6": 16,
+    "4": 5,
     "5": 9,
-    "4": 5
+    "6": 16
   },
   "by_class": {
-    "Striker": 6,
-    "Guard": 6,
     "Caster": 5,
+    "Defender": 3,
+    "Guard": 6,
+    "Striker": 6,
     "Supporter": 5,
-    "Vanguard": 5,
-    "Defender": 3
+    "Vanguard": 5
   },
   "by_element": {
-    "Physical": 8,
     "Cryo": 7,
     "Electric": 6,
     "Heat": 5,
-    "Nature": 4
+    "Nature": 4,
+    "Physical": 8
   },
   "by_weapon": {
-    "Sword": 8,
     "Arts Unit": 7,
     "Greatsword": 6,
+    "Handcannon": 4,
     "Polearm": 5,
-    "Handcannon": 4
+    "Sword": 8
   },
   "source": "api.vallov.com"
 }
