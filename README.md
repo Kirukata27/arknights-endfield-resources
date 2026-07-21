@@ -177,12 +177,12 @@ Each operator is locked to one weapon type. The type determines animation style 
 ## Database Stats
 
 <!-- SYNC:START -->
-*Last synced: 2026-07-20 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+*Last synced: 2026-07-21 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
 
 | Metric | Value |
 |--------|-------|
-| **Total Operators** | **30** |
-| 6★ Operators | 16 |
+| **Total Operators** | **31** |
+| 6★ Operators | 17 |
 | 5★ Operators | 9 |
 | 4★ Operators | 5 |
 | Most common class | Guard |
