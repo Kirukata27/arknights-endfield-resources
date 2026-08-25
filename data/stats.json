@@ -1,18 +1,18 @@
 {
-  "synced_at": "2026-08-24",
-  "last_checked": "2026-08-24",
+  "synced_at": "2026-08-25",
+  "last_checked": "2026-08-25",
   "api_available": true,
-  "total_operators": 31,
+  "total_operators": 32,
   "by_rarity": {
     "4": 5,
     "5": 9,
-    "6": 17
+    "6": 18
   },
   "by_class": {
     "Caster": 5,
     "Defender": 3,
     "Guard": 6,
-    "Striker": 6,
+    "Striker": 7,
     "Supporter": 5,
     "Unknown": 1,
     "Vanguard": 5
@@ -21,12 +21,12 @@
     "Cryo": 7,
     "Electric": 6,
     "Heat": 5,
-    "Nature": 4,
+    "Nature": 5,
     "Physical": 8,
     "Unknown": 1
   },
   "by_weapon": {
-    "Arts Unit": 7,
+    "Arts Unit": 8,
     "Greatsword": 6,
     "Handcannon": 4,
     "Polearm": 5,
