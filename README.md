@@ -177,13 +177,13 @@ Each operator is locked to one weapon type. The type determines animation style 
 ## Database Stats
 
 <!-- SYNC:START -->
-*Last synced: 2026-09-27 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
+*Last synced: 2026-09-29 — live data from [ReEnd Database](https://reend.vallov.com/) · powered by api.vallov.com*
 
 | Metric | Value |
 |--------|-------|
-| **Total Operators** | **32** |
+| **Total Operators** | **33** |
 | 6★ Operators | 18 |
-| 5★ Operators | 9 |
+| 5★ Operators | 10 |
 | 4★ Operators | 5 |
 | Most common class | Striker |
 | Most common element | Physical |
